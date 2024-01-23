@@ -137,7 +137,7 @@ def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
                     ),
                 }
             )
-        user.pop("congratulation_date")  # повертаємо словнику початковий вигляд +-
+        user.pop("congratulation_date")  # повертаємо словникам початковий вигляд +-
 
     for user in intermediate:
         if user["congratulation_date"] - today > timedelta(days=6):
