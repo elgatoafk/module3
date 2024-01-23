@@ -57,10 +57,6 @@ def normalize_phone(phone_number: str) -> str:
     """
     import re
 
-    # re.findall
-
-    # pattern_plus = r"(^\+)+(\d)"
-    # print = re.search(pattern_plus, phone_number)
     phone_number = re.sub(r"[^0-9\+]", "", phone_number)
     if re.search(r"^\+", phone_number):
         return phone_number
