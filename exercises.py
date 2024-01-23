@@ -21,6 +21,10 @@ def get_days_from_today(input_date: str) -> int | None:
 
 # TODO: add functionality
 def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
+    import random
+
+    ticket_numbers = set()
+
     """Get number for ticket
 
     :param min: int - minimum number, cannot be less than 1
@@ -30,8 +34,15 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
 
     Function generates a set quantity of random unique numbers in range from min to max, returns it in a sorted list.
     """
-    if (min < 1 or max > 1000) or (quantity < min or quantity > max):
-        pass
+    if (min < 1 or max > 1000) or (
+        quantity < min or quantity > max
+    ):  # if any of these conditions returns True, the function returns an empty list
+        return list()
+    else:
+        while len(ticket_numbers) < quantity:
+            ticket_numbers.add(random.randint(min, max))
+        ticket_numbers = list(sorted(ticket_numbers))
+        return ticket_numbers
 
 
 def normalize_phone(phone_number: str) -> str:
