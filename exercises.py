@@ -17,7 +17,7 @@ def get_days_from_today(input_date: str) -> int | None:
 
     try:
         input_date = datetime.fromisoformat(input_date)
-    except:
+    except ValueError:
         print("Incorrect input format, please enter date in format YYYY-MM-DD")
         return None
     current_date = datetime.today()
@@ -43,9 +43,9 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
         if (min < 1 or max > 1000) or (
             quantity < min or quantity > max
         ):  # if any of these conditions returns True, the function returns an empty list
-            return list()
+            return []
     except:
-        return list()  # if arguments are of a wrong type, empty list is returned
+        return []  # if arguments are of a wrong type, empty list is returned
 
     while len(ticket_numbers) < quantity:
         ticket_numbers.add(random.randint(min, max))
