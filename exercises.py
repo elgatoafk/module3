@@ -49,11 +49,10 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
 
     while len(ticket_numbers) < quantity:
         ticket_numbers.add(random.randint(min, max))
-    ticket_numbers = list(sorted(ticket_numbers))
-    return ticket_numbers
+    return list(sorted(ticket_numbers))
 
 
-print(type(get_numbers_ticket(1, 10, 15)))
+print(get_numbers_ticket(1, -10, 9))
 
 
 def normalize_phone(phone_number: str) -> str:
@@ -71,9 +70,9 @@ def normalize_phone(phone_number: str) -> str:
     if re.search(r"^\+", phone_number):
         return phone_number
     elif re.search(r"^380", phone_number):
-        return "+" + phone_number
+        return f"+{phone_number}"
     else:
-        return "+38" + phone_number
+        return f"+38{phone_number}"
 
 
 def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
@@ -92,7 +91,7 @@ def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
     """
 
     today = datetime.today().date()
-    intermediate = list()
+    intermediate = []
 
     def weekend_adjuster(congratulation_date: datetime) -> datetime:
         """Weekend adjuster
