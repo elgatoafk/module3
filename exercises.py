@@ -1,3 +1,9 @@
+import random
+import re
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
+
 def get_days_from_today(input_date: str) -> int | None:
     """Get days from today
 
@@ -8,7 +14,6 @@ def get_days_from_today(input_date: str) -> int | None:
     The result is calculated by subtracting input date from the current date,
     which is defined by datetime.today() function.
     """
-    from datetime import datetime
 
     try:
         input_date = datetime.fromisoformat(input_date)
@@ -32,7 +37,6 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
     Function generates a set quantity of random unique numbers in range
     from min to max, returns it in a sorted list.
     """
-    import random
 
     ticket_numbers = set()
     try:
@@ -49,6 +53,9 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
     return ticket_numbers
 
 
+print(type(get_numbers_ticket(1, 10, 15)))
+
+
 def normalize_phone(phone_number: str) -> str:
     """Normalize phone number
 
@@ -59,7 +66,6 @@ def normalize_phone(phone_number: str) -> str:
     If number lacks country code, the country code is added.
     The resulting string is returned in format +38XXXXXXXXXX
     """
-    import re
 
     phone_number = re.sub(r"[^0-9\+]", "", phone_number)
     if re.search(r"^\+", phone_number):
@@ -84,11 +90,8 @@ def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
     object that does not fit is removed from the list.
 
     """
-    from datetime import datetime, timedelta
-    from dateutil.relativedelta import relativedelta
 
     today = datetime.today().date()
-    today.year
     intermediate = list()
 
     def weekend_adjuster(congratulation_date: datetime) -> datetime:
