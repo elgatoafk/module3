@@ -44,7 +44,7 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
             quantity < min or quantity > max
         ):  # if any of these conditions returns True, the function returns an empty list
             return []
-    except:
+    except ValueError:
         return []  # if arguments are of a wrong type, empty list is returned
 
     while len(ticket_numbers) < quantity:
