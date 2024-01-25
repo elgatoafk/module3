@@ -1,3 +1,4 @@
+"""Module providing a function of getting random values."""
 import random
 import re
 from datetime import datetime, timedelta
@@ -20,12 +21,12 @@ def get_days_from_today(input_date: str) -> int | None:
     except ValueError:
         print("Incorrect input format, please enter date in format YYYY-MM-DD")
         return None
-    current_date = datetime.today()
+    current_date = datetime.now()
     date_subsctract = current_date - input_date
     return date_subsctract.days
 
 
-def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
+def get_numbers_ticket(minimal: int, maximal: int, quantity: int) -> list:
     """Get number for ticket
 
     :param min: int - minimum number, cannot be less than 1
@@ -40,19 +41,16 @@ def get_numbers_ticket(min: int, max: int, quantity: int) -> list:
 
     ticket_numbers = set()
     try:
-        if (min < 1 or max > 1000) or (
-            quantity < min or quantity > max
+        if (minimal < 1 or maximal > 1000) or (
+            quantity < minimal or quantity > maximal
         ):  # if any of these conditions returns True, the function returns an empty list
             return []
     except ValueError:
         return []  # if arguments are of a wrong type, empty list is returned
 
     while len(ticket_numbers) < quantity:
-        ticket_numbers.add(random.randint(min, max))
+        ticket_numbers.add(random.randint(minimal, maximal))
     return list(sorted(ticket_numbers))
-
-
-print(get_numbers_ticket(1, -10, 9))
 
 
 def normalize_phone(phone_number: str) -> str:
@@ -69,13 +67,12 @@ def normalize_phone(phone_number: str) -> str:
     phone_number = re.sub(r"[^0-9\+]", "", phone_number)
     if re.search(r"^\+", phone_number):
         return phone_number
-    elif re.search(r"^380", phone_number):
+    if re.search(r"^380", phone_number):
         return f"+{phone_number}"
-    else:
-        return f"+38{phone_number}"
+    return f"+38{phone_number}"
 
 
-def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
+def get_upcoming_birthdays(users: list[dict] = None) -> list[dict]:
     """Get upcoming birthdays
 
     :param users: list[dict] - list of dictionaries, with names and birthdays
@@ -90,7 +87,7 @@ def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
 
     """
 
-    today = datetime.today().date()
+    today = datetime.now().date()
     intermediate = []
 
     def weekend_adjuster(congratulation_date: datetime) -> datetime:
@@ -141,9 +138,10 @@ def get_upcoming_birthdays(users: list[dict]) -> list[dict]:
             )
         user.pop("congratulation_date")  # повертаємо словникам початковий вигляд +-
 
-    for user in intermediate:
+    for user in intermediate.copy():
         if user["congratulation_date"] - today > timedelta(days=6):
             intermediate.remove(user)
         elif today - user["congratulation_date"] < timedelta(days=-6):
             intermediate.remove(user)
+        user["congratulation_date"] = user["congratulation_date"].strftime("%Y.%m.%d")
     return intermediate
