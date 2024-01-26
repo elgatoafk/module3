@@ -1,4 +1,4 @@
-"""Module providing a function of getting random values."""
+"""Module providing a function for getting random values."""
 import random
 import re
 from datetime import datetime, timedelta
@@ -29,8 +29,8 @@ def get_days_from_today(input_date: str) -> int | None:
 def get_numbers_ticket(minimal: int, maximal: int, quantity: int) -> list:
     """Get number for ticket
 
-    :param min: int - minimum number, cannot be less than 1
-    :param max: int - maximum number, cannot be more than 1000
+    :param minimal: int - minimum number, cannot be less than 1
+    :param maximal: int - maximum number, cannot be more than 1000
     :param quantity: int - quantity of numbers, must be more
     than minimum and less than maximum
     :return: list - sorted list of random unique numbers
@@ -64,7 +64,7 @@ def normalize_phone(phone_number: str) -> str:
     The resulting string is returned in format +38XXXXXXXXXX
     """
 
-    phone_number = re.sub(r"[^0-9\+]", "", phone_number)
+    phone_number = re.sub(r"[^\d\+]", "", phone_number)
     if re.search(r"^\+", phone_number):
         return phone_number
     if re.search(r"^380", phone_number):
