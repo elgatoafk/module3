@@ -41,8 +41,10 @@ def get_numbers_ticket(minimal: int, maximal: int, quantity: int) -> list:
 
     ticket_numbers = set()
     try:
-        if (minimal < 1 or maximal > 1000) or (
-            quantity < minimal or quantity > maximal
+        if (
+            (minimal < 1 or maximal > 1000)
+            or (quantity < minimal or quantity > maximal)
+            or (max <= min)
         ):  # if any of these conditions returns True, the function returns an empty list
             return []
     except ValueError:
@@ -64,7 +66,7 @@ def normalize_phone(phone_number: str) -> str:
     The resulting string is returned in format +38XXXXXXXXXX
     """
 
-    phone_number = re.sub(r"[^\d\+]", "", phone_number)
+    phone_number = re.sub(r"[^\+\d]", "", phone_number)
     if re.search(r"^\+", phone_number):
         return phone_number
     if re.search(r"^380", phone_number):
@@ -86,7 +88,6 @@ def get_upcoming_birthdays(users: list[dict] = None) -> list[dict]:
     object that does not fit is removed from the list.
 
     """
-
     today = datetime.now().date()
     intermediate = []
 
